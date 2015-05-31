@@ -1,3 +1,3 @@
-# [fa7] ESPECIALIZAÇÃO EM ARQUITETURA, DESIGN E IMPLEMENTAÇÃO DE SISTEMAS PARA INTERNET
+# [fa7]
 
-Repositório com os trabalhos feitos durante o curso.
+Repositório com os trabalhos feitos durante o curso "ESPECIALIZAÇÃO EM ARQUITETURA, DESIGN E IMPLEMENTAÇÃO DE SISTEMAS PARA INTERNET".
