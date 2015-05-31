@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title><h:outputText value="#{msg['page.login.title']}" /></title>
+
+	<link rel="stylesheet" href="./css/bootstrap.min.css" />
+
+	<style>
+body {
+	padding-top: 40px;
+	padding-bottom: 40px;
+	background-color: #eee;
+}
+
+.form-signin {
+	max-width: 330px;
+	padding: 15px;
+	margin: 0 auto;
+}
+
+.form-signin .form-signin-heading, .form-signin .checkbox {
+	margin-bottom: 10px;
+}
+
+.form-signin .checkbox {
+	font-weight: normal;
+}
+
+.form-signin .form-control {
+	position: relative;
+	height: auto;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	padding: 10px;
+	font-size: 16px;
+}
+
+.form-signin .form-control:focus {
+	z-index: 2;
+}
+
+.form-signin input[type="email"] {
+	margin-bottom: -1px;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+	margin-bottom: 10px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+
+span.alert {
+	display: block;
+}
+</style>
+</h:head>
+
+<h:body>
+
+	<div class="container">
+		<h:form class="form-signin" id="loginForm">
+			<h2 class="form-signin-heading">
+				<h:outputText value="#{msg['page.login.title']}" />
+			</h2>
+			<h:message for="loginForm" class="alert alert-danger" />
+
+			<p:inputMask class="form-control"
+				placeholder="#{msg['page.login.label.cpf']}" id="cpfInput"
+				value="#{loginBean.cpf}" required="true" mask="999.999.999-99" converter="converters.CpfConverter">
+			</p:inputMask>
+
+			<h:inputSecret placeholder="#{msg['page.login.label.senha']}"
+				class="form-control" id="senhaInput" value="#{loginBean.senha}"
+				maxlength="11" size="12" required="true" />
+
+			<h:commandButton action="#{loginBean.autenticar}"
+				class="btn btn-lg btn-primary btn-block"
+				value="#{msg['page.login.label.entrar']}" />
+			<br />
+			<h:commandLink action="#{usuarioBean.novoUsuario()}"
+				value="#{msg['commons.newconta']}" immediate="true" />
+			<br />
+			<h:form id="msgSucesso">
+				<h:outputText value="#{usuarioBean.msgSucesso}" />
+			</h:form>
+			
+		</h:form>
+	</div>
+</h:body>
+</html>

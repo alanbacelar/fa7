@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+<h:panelGroup rendered="#{loginBean.getUsuarioAutenticado().getNomeReduzido() != null}">
+	<nav class="navbar navbar-default">
+	  <div class="container">
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand" href="/trabalho">Trabalho</a>
+	      
+	    </div>
+	    <div id="navbar" class="navbar-collapse collapse">
+	      <ul class="nav navbar-nav">
+	        <li><a href="/trabalho">Inicio</a></li>
+	        
+	        <li class="dropdown">
+	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Menu <span class="caret"></span></a>
+	          <ul class="dropdown-menu" role="menu">
+	            <li><a href="teste.xhtml">Teste XHTML</a></li>
+	            <li><a href="contadores">Contadores de acesso</a></li>
+	            <li><a href="listar-usuarios.xhtml">Lista de Usuários</a></li>
+	            <li><a href="listar-estados.xhtml">Lista de Estados</a></li>
+	            <li><a href="jogo-forca.xhtml">Jogo da Forca</a></li>
+	          </ul>
+	        </li>
+	      </ul>
+	      
+	       <ul class="nav navbar-nav navbar-right">
+	        <li class="dropdown">
+	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">#{loginBean.getUsuarioAutenticado().getNomeReduzido()} <span class="caret"></span></a>
+	          <ul class="dropdown-menu" role="menu">
+	            <!-- <li><a href="#">Editar meus dados</a></li>
+	            <li class="divider"></li> -->
+	            <li><a href="logout.xhtml">Sair</a></li>
+	          </ul>
+	        </li>
+	       </ul>
+	    </div><!--/.nav-collapse -->
+	  </div>
+	</nav>
+</h:panelGroup>
+</html>

@@ -1,0 +1,24 @@
+@(c1: List[Cliente])
+
+@main("Relatórios") {
+
+@if(flash.get("success") != null) {
+	<div class="alert alert-success" role="alert">@flash.get("success")</div>
+}
+
+@if(flash.get("error") != null) {
+<div class="alert alert-danger" role="alert">@flash.get("error")</div>
+}
+
+
+<section class="content">
+	  <h4>Resultado consulta 1</h4>
+
+		<ul>
+			@for(c <- c1) {
+				<li>@c.getNome</li>
+			}
+		</ul>
+</section><!-- /.content -->
+}
+

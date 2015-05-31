@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+    <title>
+    	<h:outputText value="Trabalho" />
+    </title>
+
+	<link rel="stylesheet" href="./css/bootstrap.min.css" />
+	<link rel="stylesheet" href="./css/bootstrap-theme.min.css" />
+</h:head>
+
+<h:body>
+	<ui:include src="/menu.xhtml" />
+	
+	<div class="container">
+	
+	  <h1>Teste de acesso XHTML</h1>
+	  
+      <!-- Main component for a primary marketing message or call to action -->
+      <div class="jumbotron" style="margin-top: 10px;">
+      	<h1>#{application.getAttribute("mapXHTMLCounters").get("/trabalho/teste.xhtml")} <small>acesso(s) a esta página</small></h1>
+        <p>Temos um total de <b>#{application.getAttribute("countXHTMLRequest")}</b> acesso(s) a páginas ".xhtml". Clique <a href="/trabalho/contadores">aqui</a> para acessar a página de contadores de acesso.</p>
+      </div>
+      
+      <p>
+        <a class="btn btn-lg btn-primary" href="/trabalho">Página inicial</a>
+      </p>
+
+    </div> <!-- /container -->
+    
+     <!-- JS -->
+    <ui:include src="/footer.xhtml" />
+</h:body>
+
+</html>

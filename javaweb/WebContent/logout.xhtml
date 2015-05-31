@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title><h:outputText value="#{msg['page.logout.title']}" /></title>
+	
+	<link rel="stylesheet" href="./css/bootstrap.min.css" />
+	<link rel="stylesheet" href="./css/bootstrap-theme.min.css" />
+</h:head>
+<h:body>
+	<!-- Fixed navbar -->
+    <div class="container">
+
+      <!-- Main component for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <h1>
+			<h:outputText value="#{msg['page.logout.title']}" />
+		</h1>
+        <p><h:outputText value="#{msg['page.logout.mensagem']}" /></p>
+        
+        <h:form>
+			<h:commandLink class="btn btn-lg btn-primary"  value="#{msg['page.index.title']}" action="index?faces-redirect=true" />
+		</h:form>
+      </div>
+
+    </div> <!-- /container -->
+</h:body>
+
+</html>

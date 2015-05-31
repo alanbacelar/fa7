@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<h:head>
+	<title><h:outputText value="#{msg['page.usuarios.title']}" /></title>
+	<link rel="stylesheet" href="./css/bootstrap.min.css" />
+	<link rel="stylesheet" href="./css/bootstrap-theme.min.css" />
+</h:head>
+
+<h:body>
+	<ui:include src="/menu.xhtml" />
+	
+	<div class="container">
+	
+        <h2>#{msg['page.usuarios.title.lista']}</h2>
+      
+		<h:form>
+			<h:dataTable class="table table-bordered" value="#{usuarioBean.listaUsuarios}" var="usuario">
+				
+				<h:column class="form-control">
+					<f:facet name="header" class="form-control">
+						<h:outputText value="#{msg['page.usuarios.label.cpf']}" />
+					</f:facet>
+					<h:outputText value="#{usuario.cpf}" converter="converters.CpfConverter"/>
+				</h:column>
+	
+				<h:column class="form-control">
+					<f:facet name="header">
+						<h:outputText value="#{msg['page.usuarios.label.nomeReduzido']}" />
+					</f:facet>
+					<h:outputText value="#{usuario.nomeReduzido}" />
+				</h:column>
+	
+				<h:column class="form-control">
+					<f:facet name="header">
+						<h:outputText value="#{msg['page.usuarios.label.email']}" />
+					</f:facet>
+					<h:outputText value="#{usuario.email}" />
+				</h:column>
+				
+				<h:column class="form-control">
+					<f:facet name="header">
+						<h:outputText value="#{msg['page.usuarios.label.cep']}" />
+					</f:facet>
+					<h:outputText value="#{usuario.cep}" converter="converters.CepConverter"/>
+				</h:column>
+	
+				<h:column class="form-control">
+					<h:commandLink action="usuario-editar"
+						value="#{msg['commons.alterar']}">
+						<f:setPropertyActionListener target="#{usuarioBean.usuario}"
+							value="#{usuario}" />
+					</h:commandLink>
+				</h:column>
+	
+				<h:column class="form-control">
+					<h:commandLink action="#{usuarioBean.excluirUsuario}"
+						value="#{msg['commons.excluir']}">
+						<f:setPropertyActionListener target="#{usuarioBean.usuario}"
+							value="#{usuario}" />
+					</h:commandLink>
+				</h:column>
+			</h:dataTable>
+
+			<p>
+				<a class="btn btn-lg btn-primary" href="#{usuarioBean.novoUsuario()}" type="button">#{msg['commons.novo']}</a>
+				<a class="btn btn-lg btn-primary" href="/trabalho" role="button">#{msg['commons.voltar']}</a> 
+			</p>
+		</h:form>
+	</div>
+	
+	<ui:include src="/footer.xhtml" />
+</h:body>
+</html>

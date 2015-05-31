@@ -1,0 +1,58 @@
+@(fornecedores: List[Fornecedor])
+
+@main("Lista de Fornecedores") {
+
+@if(flash.get("success") != null) {
+	<div class="alert alert-success" role="alert">@flash.get("success")</div>
+}
+
+@if(flash.get("error") != null) {
+<div class="alert alert-danger" role="alert">@flash.get("error")</div>
+}
+
+<section class="content">
+	  <div class="row">
+	    <div class="col-xs-12">
+	      <div class="box">
+
+	        <div class="box-header">
+	          <a href="fornecedores/novo" class="btn btn-primary">Adicionar Fornecedor</a>
+	        </div><!-- /.box-header -->
+
+	        <div class="box-body">
+	          <table id="table-vendedores" class="table table-bordered table-hover">
+	            <thead>
+	              <tr>
+					<th>ID</th>
+	                <th>Nome</th>
+	                <th>CPF</th>
+	                <th>Data Nascimento</th>
+	                <th>Cidade</th>
+	                <th>Ações</th>
+	              </tr>
+	            </thead>
+
+	            <tbody>
+	              	@for(fornecedor <- fornecedores) {
+	              		<tr>
+							<td>@fornecedor.getId()</td>
+					  		<td>@fornecedor.getNome()</td>
+							<td>@fornecedor.getNomeFantasia()</td>
+					  		<td>@fornecedor.getCnpj()</td>
+					  		<td>@fornecedor.getEndereco().getCidade() - @fornecedor.getEndereco().getUf()</td>
+					  		<td>
+					  			<a href="fornecedores/editar/@fornecedor.getId()" class="btn btn-sm btn-primary" title="Editar"><i class="fa fa-edit"></i></a>
+					  			<a href="fornecedores/deletar/@fornecedor.getId()" class="btn btn-sm btn-danger" title="Remover"><i class="fa fa-remove"></i></a>
+					  		</td>
+					  	</tr>
+					}
+	            </tbody>
+	          </table>
+	        </div><!-- /.box-body -->
+	      </div><!-- /.box -->
+
+	    </div><!-- /.col -->
+	  </div><!-- /.row -->
+	  </section><!-- /.content -->
+}
+

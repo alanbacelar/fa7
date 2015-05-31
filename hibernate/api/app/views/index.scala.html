@@ -1,0 +1,132 @@
+@(visitas: List[Visita], registros: HashMap[String, Object])
+
+@main("Dashboard") {
+
+@if(flash.get("success") != null) {
+<div class="alert alert-success" role="alert">@flash.get("success")</div>
+}
+
+@if(flash.get("error") != null) {
+<div class="alert alert-danger" role="alert">@flash.get("error")</div>
+}
+
+@if(flash.get("warning") != null) {
+<div class="alert alert-warning" role="alert">@flash.get("warning")</div>
+}
+
+<!-- Small boxes (Stat box) -->
+<div class="row">
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-aqua">
+            <div class="inner">
+                <h3>@registros.get("clientes")</h3>
+                <p>Cliente(s)</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-bag"></i>
+            </div>
+        </div>
+    </div><!-- ./col -->
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-green">
+            <div class="inner">
+                <h3>@registros.get("vendedores")</h3>
+                <p>Vendedor(es)</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-stats-bars"></i>
+            </div>
+        </div>
+    </div><!-- ./col -->
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-yellow">
+            <div class="inner">
+                <h3>@registros.get("fornecedores")</h3>
+                <p>Fornecedor(es)</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-person-add"></i>
+            </div>
+        </div>
+    </div><!-- ./col -->
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-red">
+            <div class="inner">
+                <h3>@registros.get("visitas")</h3>
+                <p>Visita(s) Registrada(s)</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-pie-graph"></i>
+            </div>
+        </div>
+    </div><!-- ./col -->
+</div><!-- /.row -->
+<!-- Main row -->
+
+
+<!-- Map box -->
+<div class="box box-solid bg-light-blue-gradient">
+    <div class="box-header">
+        <i class="fa fa-map-marker"></i>
+
+        <h3 class="box-title">
+            Visitas Registradas
+        </h3>
+    </div>
+    <div class="box-body">
+        <div id="world-map" style="height: 350px; width: 100%;"></div>
+    </div>
+</div>
+<!-- /.box -->
+
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+
+<script>
+    function initialize() {
+      navigator.geolocation.getCurrentPosition(success, error);
+
+      function success(position) {
+        var latitude  = position.coords.latitude;
+        var longitude = position.coords.longitude;
+
+        var mapOptions = {
+            zoom: 12,
+            center: new google.maps.LatLng(latitude, longitude)
+        }
+
+        var map = new google.maps.Map(document.getElementById('world-map'), mapOptions);
+
+        google.maps.event.addListener(map, 'tilesloaded', function() {
+
+          @for(v <- visitas) {
+              var infowindow = new google.maps.InfoWindow({
+                  content: "<b>Data Inicio:</b> @v.getHoraInicio()<br/><b>Data Fim:</b> @v.getHoraFim()"
+              });
+
+              var marker = new google.maps.Marker({
+                  position: new google.maps.LatLng(@v.getLatitude, @v.getLongitude),
+                  map: map,
+                  title: 'Hello World!'
+              });
+
+              google.maps.event.addListener(marker, 'click', function() {
+                infowindow.open(map, marker);
+              });
+            }
+        });
+
+      };
+
+      function error() {
+        console.log("Unable to retrieve your location");
+      };
+    }
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+
+}

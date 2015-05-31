@@ -1,0 +1,137 @@
+@(mForm: play.data.Form[Pedido], cliente: Cliente, vendedores: List[Vendedor], produtos: List[Produto]) 
+@main("Cadastrar Pedido"){ 
+
+@if(flash.get("error") != null) {
+	<div class="alert alert-danger" role="alert">@flash.get("error")</div>
+}
+
+<!-- form start -->
+<section class="content">
+	<form method="POST" action="/pedidos/save">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="box-header">
+					<h3 class="box-title">Informações básicas</h3>
+				</div>
+
+				<div class="box box-primary">
+					<div class="box-body">
+						<div class="form-group">
+							<label>Cliente: </label> @cliente.getNome()
+						</div>
+
+						<div class="form-group">
+							<label for="vendedor">Vendedor:</label> <select
+								class="form-control" id="vendedor" name="id_vendedor">
+								@for(v <- vendedores) {
+								<option value='@v.getId()'
+									@if( mForm("vendedor.id").value !=null&& mForm("vendedor.id").value.equals(v.getId().toString()) ) {selected}>@v.getNome</option>
+								}
+							</select>
+						</div>
+						
+
+
+						<input type="hidden" value='@(cliente.getId())' name="id_cliente" />
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-6">
+				<div class="box-header">
+					<h3 class="box-title">Itens do Pedido</h3>
+				</div>
+
+				<div class="box">
+					<div class="box-body">
+						<div class="form-group">
+							<label for="produtos">Produto:</label>
+							<select class="form-control" id="produtos" name="id_produto">
+								@for(p <- produtos) {
+									<option value='@p.getId()'>@p.getNome</option>
+								}
+							</select>
+						</div>
+
+						<div class="form-group">
+							<label for="quantidade">Quantidade:</label>
+							<input type="number" class="form-control" id="quantidade" name="quantidade" mForm("quantidade") />
+						</div>
+
+						<div class="form-group">
+							<button type="button" id="btn-adicionar" class="btn btn-default">Adicionar</button>
+						</div>
+					</div>
+					<!-- /.box-body -->
+				</div>
+				<!-- /.box -->
+			</div>
+
+			<div class="col-md-12">
+				<div class="box-header">
+					<h3 class="box-title">Itens do Adicionados</h3>
+				</div>
+
+				<div class="box">
+					<div class="box-body">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Produto</th>
+									<th>Quantidade</th>
+									<th>Ações</th>
+								</tr>
+							</thead>
+
+							<tbody>
+
+							</tbody>
+						</table>
+					</div>
+					<!-- /.box-body -->
+				</div>
+				<!-- /.box -->
+			</div>
+
+			<div class="col-md-12">
+				<div class="box">
+					<div class="box-body">
+						<button type="submit" class="btn btn-primary">Salvar</button>
+					</div>
+					<!-- /.box-body -->
+				</div>
+				<!-- /.box -->
+			</div>
+		</div>
+	</form>
+</section>
+}
+
+
+<script>
+	(function(){
+		$('#btn-adicionar').click(function() {
+			var html = '<tr>';
+			html += '<td>';
+			html += $('#produtos option:selected').text();
+			html += '<input type="hidden" value="'+$('#produtos option:selected').val()+'" />';
+			html += '</td>';
+			html += '<td>';
+			html += $('#quantidade').val();
+			html += '<input type="hidden" value="'+$('#quantidade').val()+'" />';
+			html += '</td>';
+			html += '<td>';
+			html += '<button type="button" class="btn btn-danger btn-remove">Remove</button>';
+			html += '</td>';
+			html += '</tr>';
+
+			$('.table tbody').append(html);
+
+			$('.btn-remove').on('click', function(){
+				$(this).parent().parent().remove();
+			});
+		});
+
+
+	})();
+</script>

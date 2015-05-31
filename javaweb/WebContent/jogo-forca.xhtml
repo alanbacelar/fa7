@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+    <title>
+    	<h:outputText value="Trabalho" />
+    </title>
+
+	<link rel="stylesheet" href="./css/bootstrap.min.css" />
+	<link rel="stylesheet" href="./css/bootstrap-theme.min.css" />
+	
+	<style>
+		.palavras {
+			margin: auto;
+			padding: 0;
+			text-align: center;
+			width: 100%;
+			height: 60px;
+  			margin-bottom: 30px;
+		}
+		
+		.palavras li {
+			list-style: none;
+			margin-right: 3px; 
+			border: 1px solid #ccc;
+			padding: 10px;
+			font-size: 2.5em;
+			width: 60px;
+			height: 60px;
+			text-align: center;
+			display: inline-flex;
+		}
+		
+		.group-center {
+			margin: auto;
+			width: 130px;
+			margin-bottom: 20px;
+		}
+	</style>
+</h:head>
+
+<h:body>
+	<ui:include src="/menu.xhtml" />
+	
+	<div class="container">
+	  <h1>JOGO DA FORCA</h1>
+	  
+	  <p class="text-info"><b>#{msg['page.forca.label.dica']}</b> #{jogoForcaBean.dica}</p>
+	  <p class="text-warning"><b>Chances:</b> #{jogoForcaBean.chances}</p>
+	  
+	  <h:form id="forcaForm">
+	  	  <div class="col-md-12 text-center">
+		  	  <h:panelGroup id="listaPalavras">
+			  	  <ul class="palavras">
+				  	  <ui:repeat value="#{jogoForcaBean.getLetras()}" var="letra">
+			            <li><h:outputText  value="#{letra}" rendered="#{jogoForcaBean.mostrarLetra(letra)}" /></li>
+			          </ui:repeat>
+				  </ul>
+			  </h:panelGroup>
+		  </div>
+		  
+		  <div class="col-md-12 text-center">
+		  	<div class="group-center">
+		  	  <h:panelGroup id="groupCenter" rendered="#{jogoForcaBean.fimDeJogo() == false}">
+		  	  		<p>#{msg['page.forca.label']}</p>
+			  	  	<div class="input-group">
+					  <h:inputText id="palpite" 
+					  		valueChangeListener="#{jogoForcaBean.onChange}"
+					  		binding="#{jogoForcaBean.palpiteInput}"
+					  		maxlength="1"
+					  		class="form-control input-lg"
+					  		autofocus="true"
+					  		required="true">
+					  		
+					  		<f:validateLength maximum="1" minimum="1" />
+					  </h:inputText>
+					  
+					  <span class="input-group-btn">
+					  	  <h:commandButton class="btn btn-default btn-lg" value="OK!">
+						  	<f:ajax event="keyup" execute="@this" render="listaPalavras palpite msgAcertou" />
+						  </h:commandButton>
+					  </span>
+				  </div>
+				  
+				  <h:message for="palpite" class="text-danger"></h:message>
+		  	  </h:panelGroup>
+			  </div>
+			  
+		  </div>
+		  
+		  <h2 class="text-center"><h:outputText id="msgParcial" value="#{msg[jogoForcaBean.mensagem]}" rendered="#{jogoForcaBean.hasMensagem()}" /></h2>
+		  <p class="text-center"><h:commandButton id="btnNewGame" immediate="true" class="btn btn-primary" value="#{msg['page.forca.label.new']}" rendered="true" action="#{jogoForcaBean.newGame()}" /></p>
+		  
+	  </h:form>
+	  
+	  <a href="/trabalho/">Página inicial</a>
+
+    </div> <!-- /container -->
+    
+    <!-- JS -->
+    <ui:include src="/footer.xhtml" />
+    
+    <script>
+    	$(document).ready(function(){
+    		document.getElementById('forcaForm:palpite').focus();
+    	});
+    </script>
+</h:body>
+
+</html>

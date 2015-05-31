@@ -1,0 +1,55 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                           controllers.Application.index()
+GET     /vendedores                 controllers.VendedorController.index()
+POST    /vendedores/save            controllers.VendedorController.save()
+GET     /vendedores/novo            controllers.VendedorController.adicionar()
+GET     /vendedores/editar/:id      controllers.VendedorController.editar(id: Integer)
+GET     /vendedores/deletar/:id     controllers.VendedorController.deletar(id: Integer)
+
+
+GET     /clientes                 controllers.ClienteController.index()
+POST    /clientes/save            controllers.ClienteController.save()
+GET     /clientes/novo            controllers.ClienteController.adicionar()
+GET     /clientes/editar/:id      controllers.ClienteController.editar(id: Integer)
+GET     /clientes/deletar/:id     controllers.ClienteController.deletar(id: Integer)
+
+GET     /pedidos/:id    		 controllers.PedidoController.index(id: Integer)
+GET 	/pedidos/listar/:id	 	 controllers.ItensPedidoController.index(id: Integer)
+GET 	/pedidos/novo/:id	     controllers.PedidoController.adicionar(id: Integer)
+GET 	/pedidos	 		     controllers.PedidoController.todos()
+POST 	/pedidos/save			 controllers.PedidoController.save()		 	
+
+GET     /fornecedores                 controllers.FornecedorController.index()
+POST    /fornecedores/save            controllers.FornecedorController.save()
+GET     /fornecedores/novo            controllers.FornecedorController.adicionar()
+GET     /fornecedores/editar/:id      controllers.FornecedorController.editar(id: Integer)
+GET     /fornecedores/deletar/:id     controllers.FornecedorController.deletar(id: Integer)
+
+
+GET     /produtos                 controllers.ProdutoController.index()
+POST    /produtos/save            controllers.ProdutoController.save()
+GET     /produtos/novo            controllers.ProdutoController.adicionar()
+GET     /produtos/editar/:id      controllers.ProdutoController.editar(id: Integer)
+GET     /produtos/deletar/:id     controllers.ProdutoController.deletar(id: Integer)
+
+GET     /agenda                 controllers.AgendaController.index()
+POST    /agenda/save            controllers.AgendaController.save()
+GET     /agenda/novo            controllers.AgendaController.adicionar()
+GET     /agenda/editar/:id      controllers.AgendaController.editar(id: Integer)
+GET     /agenda/deletar/:id     controllers.AgendaController.deletar(id: Integer)
+GET     /agenda/registrar/:id   controllers.AgendaController.registrar(id: Integer)
+POST    /agenda/registrar       controllers.AgendaController.salvarVisita()
+
+GET    /relatorios             controllers.RelatoriosController.index()
+
+GET     /testes/                controllers.TestController.index()
+GET     /testes/carga           controllers.TestController.carga()
+GET     /testes/pool            controllers.TestController.pool()
+GET     /testes/cache           controllers.TestController.cache()
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)

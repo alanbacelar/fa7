@@ -1,0 +1,35 @@
+@main("Testes") {
+
+	<section class="content">
+		<a href="@routes.TestController.carga()" class="btn btn-primary">Carga Inicial</a>
+		<a href="@routes.TestController.pool()" class="btn btn-primary">Testar Pool de conexões</a>
+		<a href="@routes.TestController.cache()" class="btn btn-primary">Testar Cache</a>
+
+		<div id="log"></div>
+		<img id="loading" src="@routes.Assets.at("images/loading.gif")" alt="Carregando..." />
+	</section>
+
+	<script>
+		(function(){
+
+			$(".btn").click(function(e){
+				e.preventDefault();
+				$("#loading").show();
+
+				var request = $.ajax({
+				  url: this.href,
+				  method: "GET",
+				  dataType: "html"
+				}).done(function( msg ) {
+				  $("#loading").hide();
+				  $( "#log" ).html( msg );
+				}).fail(function( jqXHR, textStatus ) {
+					$("#loading").hide();
+				 	$( "#log" ).html( "Request failed: " + textStatus );
+				});
+			});
+
+		})();
+	</script>
+}
+

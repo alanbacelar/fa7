@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+	<title><h:outputText value="#{msg['page.usuarios.title']}" /></title>
+	<link rel="stylesheet" href="./css/bootstrap.min.css" />
+	<link rel="stylesheet" href="./css/bootstrap-theme.min.css" />
+</h:head>
+
+<h:body>
+	<ui:include src="/menu.xhtml" />
+
+	<div class="container">
+		<h2>
+			<h:outputText value="#{msg['page.estados.title']}" />
+		</h2>
+
+		<h:form id="listaEstadoForm" class="form-signin">
+			<h:dataTable id="estadoTable" class="table table-bordered"
+				value="#{estadoBean.listaEstados}" var="estado">
+
+				<h:column class="form-control">
+					<f:facet name="header" class="form-control">
+						<h:outputText value="#{msg['page.estados.label.id']}" />
+					</f:facet>
+					<h:outputText value="#{estado.id}" />
+				</h:column>
+
+				<h:column class="form-control">
+					<f:facet name="header">
+						<h:outputText value="#{msg['page.estados.label.nome']}" />
+					</f:facet>
+					<h:outputText value="#{estado.nome}" />
+				</h:column>
+
+				<h:column class="form-control">
+					<f:facet name="header">
+						<h:outputText value="#{msg['page.estados.label.sigla']}" />
+					</f:facet>
+					<h:outputText value="#{estado.sigla}" />
+				</h:column>
+
+				<h:column class="form-control">
+					<f:facet name="header">
+						<h:outputText value="#{msg['commons.alterar']}" />
+					</f:facet>
+					
+					<h:commandLink action="estado-editar?faces-redirect=true" value="#{msg['commons.alterar']}">
+						<f:setPropertyActionListener target="#{estadoBean.estado}" value="#{estado}" />
+					</h:commandLink>
+				</h:column>
+			</h:dataTable>
+
+			<p>
+				<a class="btn btn-lg btn-primary" href="#{estadoBean.novoEstado()}"
+					type="button"><h:outputText value="#{msg[ 'commons.novo']}" /></a>
+				<a class="btn btn-lg btn-primary" href="/trabalho" type="button"><h:outputText
+						value="#{msg['commons.voltar']}" /></a>
+			</p>
+		</h:form>
+	</div>
+
+	<ui:include src="/footer.xhtml" />
+</h:body>
+</html>

@@ -1,0 +1,58 @@
+@(vendedores: List[Vendedor])
+
+@main("Lista de Vendedores") {
+
+@if(flash.get("success") != null) {
+	<div class="alert alert-success" role="alert">@flash.get("success")</div>
+}
+
+@if(flash.get("error") != null) {
+<div class="alert alert-danger" role="alert">@flash.get("error")</div>
+}
+
+<section class="content">
+	  <div class="row">
+	    <div class="col-xs-12">
+	      <div class="box">
+
+	        <div class="box-header">
+	          <a href="vendedores/novo" class="btn btn-primary">Adicionar Vendedor</a>
+	        </div><!-- /.box-header -->
+
+	        <div class="box-body">
+	          <table id="table-vendedores" class="table table-bordered table-hover">
+	            <thead>
+	              <tr>
+					<th>ID</th>
+	                <th>Nome</th>
+	                <th>CPF</th>
+	                <th>Data Nascimento</th>
+	                <th>Cidade</th>
+	                <th>Ações</th>
+	              </tr>
+	            </thead>
+
+	            <tbody>
+	              	@for(vendedor <- vendedores) {
+	              		<tr>
+							<td>@vendedor.getId()</td>
+					  		<td>@vendedor.getNome()</td>
+					  		<td>@vendedor.getCpf()</td>
+					  		<td>@vendedor.getDataNascimento()</td>
+					  		<td>@vendedor.getEndereco().getCidade() - @vendedor.getEndereco().getUf()</td>
+					  		<td>
+					  			<a href="vendedores/editar/@vendedor.getId()" class="btn btn-sm btn-primary" title="Editar"><i class="fa fa-edit"></i></a>
+					  			<a href="vendedores/deletar/@vendedor.getId()" class="btn btn-sm btn-danger" title="Remover"><i class="fa fa-remove"></i></a>
+					  		</td>
+					  	</tr>
+					}
+	            </tbody>
+	          </table>
+	        </div><!-- /.box-body -->
+	      </div><!-- /.box -->
+
+	    </div><!-- /.col -->
+	  </div><!-- /.row -->
+	  </section><!-- /.content -->
+}
+

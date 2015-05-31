@@ -1,0 +1,65 @@
+@(itens: List[ItensPedido])
+@main("Itens do Pedido"){
+
+@if(flash.get("success") != null) {
+	<div class="alert alert-success" role="alert">@flash.get("success")</div>
+} @if(flash.get("error") != null) {
+	<div class="alert alert-danger" role="alert">@flash.get("error")</div>
+}
+
+<section class="content">
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="box">
+				<div class="col-md-6">
+					<div class="box-header">
+						<!--  <a href="pedidos/novo" class="btn btn-primary">Adicionar
+							Pedido</a> -->
+					</div>
+					<div class="box-header">
+						<h3 class="box-title">Pedido: @itens.get(0).getPedido().getId()</h3>
+						<p> Cliente: @itens.get(0).getPedido().getCliente().getNome() <br/>
+							Vendedor: @itens.get(0).getPedido().getVendedor().getNome()
+						</p>
+					</div>
+				</div>
+
+				<!-- /.box-header -->
+
+				<div class="box-body">
+					<table id="table-itens"
+						class="table table-bordered table-hover">
+						<thead>
+							<tr>
+								<th>Item</th>
+								<th>Produto</th>
+								<th>Quantidade</th>
+								<th>Valor</th>
+								<th>Total</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							@for(item <- itens) {
+							<tr>
+								<td>@item.getId()</td>
+								<td>@item.getProduto().getNome()</td>
+								<td>@item.getQuantidade()</td>
+								<td>R$ @item.getProduto().getPreco()</td>
+								<td>R$ @item.getTotal()</td>
+							</tr>
+							}
+						</tbody>
+					</table>
+				</div>
+				<!-- /.box-body -->
+			</div>
+			<!-- /.box -->
+
+		</div>
+		<!-- /.col -->
+	</div>
+	<!-- /.row -->
+</section>
+<!-- /.content -->
+}

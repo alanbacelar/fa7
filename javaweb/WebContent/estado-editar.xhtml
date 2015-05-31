@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title><h:outputText
+			value="#{msg['page.estadosEditar.title']}" /></title>
+	<link rel="stylesheet" href="./css/bootstrap.min.css" />
+	<link rel="stylesheet" href="./css/bootstrap-theme.min.css" />
+</h:head>
+
+<style>
+
+	span.alert {
+		display: block;
+		width: 500px;
+	}
+	
+	.gridCol1 {
+		width: 150px;
+	}
+	
+	.gridCol2 {
+		width: 380px;
+	}
+	
+	.gridCol2 input, .gridCol2 textarea {
+		width: 350px;
+		margin-bottom: 5px;
+	}
+	
+	.gridCol3 {
+		width: 450px;
+	}
+	
+	.btn-group {
+		margin-top: 20px;
+	}
+	
+	.page-header {
+		margin-top: 0;
+	}
+	
+	.table, .btn-city {
+		margin-top: 30px;
+	}
+
+</style>
+
+
+<h:body>
+	<ui:include src="/menu.xhtml" />
+
+	<div class="container">
+		<h:form id="estadoForm">
+			<h2 class="form-signin-heading">
+				<h:outputText value="#{msg['page.estados.title.cadastro']}" />
+			</h2>
+
+			<h:message for="estadoForm" class="alert alert-danger" />
+			<h:inputHidden value="#{estadoBean.estado.id}" />
+
+			<h:panelGrid columns="3" columnClasses="gridCol1, gridCol2, gridCol3">
+			
+				<h:outputLabel for="idInput" value="#{msg['page.estados.label.id']}:" />
+				<h:inputText class="form-control" id="idInput" value="#{estadoBean.estado.id}" readonly="true" />
+				<h:message for="idInput" />
+				
+				<h:outputLabel for="nomeInput" value="#{msg['page.estados.label.nome']}:" />
+				<h:inputText class="form-control" id="nomeInput" value="#{estadoBean.estado.nome}" required="true" />
+				<h:message for="nomeInput" class="text-danger" />
+				
+				<h:outputLabel for="siglaInput" value="#{msg['page.estados.label.sigla']}:" />
+				<h:inputText class="form-control" id="siglaInput" value="#{estadoBean.estado.sigla}" required="true" />
+				<h:message for="siglaInput" class="text-danger" />
+
+			</h:panelGrid>
+			
+	
+			<h:commandLink class="btn btn-city btn-primary" action="#{cidadeBean.novaCidade(estadoBean.estado)}" value="#{msg['page.cidadesEditar.label.new']}"> 
+				<f:setPropertyActionListener target="#{cidadeBean.estado}" value="#{estadoBean.estado}" />
+			</h:commandLink>
+			
+			<h:dataTable id="cidadesTable" class="table table-bordered" value="#{estadoBean.cidades}" var="cidade">
+
+				<h:column class="form-control">
+					<f:facet name="header" class="form-control">
+						<h:outputText value="#{msg['page.cidadesEditar.label.id']}" />
+					</f:facet>
+					<h:outputText value="#{cidade.id}" />
+				</h:column>
+
+				<h:column class="form-control">
+					<f:facet name="header">
+						<h:outputText value="#{msg['page.cidadesEditar.label.nome']}" />
+					</f:facet>
+					<h:outputText value="#{cidade.nome}" />
+				</h:column>
+				
+				<h:column class="form-control">
+					<f:facet name="header">
+						<h:outputText value="#{msg['page.cidadesEditar.label.populacao']}" />
+					</f:facet>
+					<h:outputText value="#{cidade.populacao}" />
+				</h:column>
+				
+				<h:column class="form-control">
+					<f:facet name="header">
+						<h:outputText value="#{msg['page.cidadesEditar.label.dataConstituicao']}" />
+					</f:facet>
+
+					<h:outputText value="#{cidade.dataConstituicao}">
+						<f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+					</h:outputText>
+				</h:column>
+				
+				
+				<h:column class="form-control">
+					<f:facet name="header">
+						<h:outputText value="#{msg['page.cidadesEditar.label.pib']}" />
+					</f:facet>
+					<h:outputText value="#{cidade.pib}" />
+				</h:column>
+				
+				<h:column class="form-control">
+					<f:facet name="header">
+						<h:outputText value="#{msg['commons.alterar']}" />
+					</f:facet>
+					
+					<h:commandLink action="cidade-editar" value="#{msg['commons.alterar']}">
+						<f:setPropertyActionListener target="#{cidadeBean.cidade}" value="#{cidade}" />
+					</h:commandLink>
+				</h:column>
+				
+				<!-- <h:column class="form-control">
+					<f:facet name="header">
+						<h:outputText value="#{msg['commons.excluir']}" />
+					</f:facet>
+					
+					<h:commandLink action="#{cidadeBean.excluirCidade}" value="#{msg['commons.excluir']}">
+						<f:setPropertyActionListener target="#{cidadeBean.cidade}" value="#{cidade}" />
+					</h:commandLink>
+				</h:column> -->
+			</h:dataTable>
+			
+			<div class="btn-toolbar btn-group-lg">
+				<h:commandButton class="btn btn-primary" action="#{estadoBean.salvarEstado}" value="#{msg['commons.salvar']}">
+					<f:setPropertyActionListener target="#{estadoBean.msgSucesso}" value="Estado salvo com sucesso" />
+				</h:commandButton>
+				
+				<h:commandButton class="btn btn-danger" action="#{estadoBean.excluirEstado}" value="#{msg['commons.excluir']}">
+					<f:setPropertyActionListener target="#{estadoBean.msgSucesso}" value="Estado excluído com sucesso" />
+				</h:commandButton>
+				
+				<h:commandButton class="btn btn-primary" action="listar-estados?faces-redirect=true" value="#{msg['commons.voltar']}" immediate="true" />
+			</div>
+		</h:form>
+	</div>
+
+	<ui:include src="/footer.xhtml" />
+</h:body>
+</html>

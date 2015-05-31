@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+	<session-factory name="hibernateSessionFactory">
+
+		<!-- Database connection settings -->
+		<property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="connection.url">jdbc:mysql://localhost:3306/trabalho-hibernate?autoReconnect=true</property>
+		<property name="connection.username">root</property>
+		<property name="connection.password">1234</property>
+
+
+		<!-- https://www.playframework.com/documentation/1.2.4/configuration -->
+		<property name="hibernate.c3p0.min_size">10</property><!-- default: 1  -->
+		<property name="hibernate.c3p0.max_size">60</property><!-- default: 100  -->
+		<property name="hibernate.c3p0.timeout">10000</property><!-- default: 0 (nunca expira)  -->
+		<property name="hibernate.c3p0.max_statements">50</property><!-- default: 0 (não faz cache)  -->
+		<property name="hibernate.c3p0.idle_test_period">1000</property><!-- default: 0 (não faz teste de conexões inativas)  -->
+		<property name="defaultAutoCommit">false</property>
+		<property name="hibernate.current_session_context_class">thread</property>
+
+		<!-- JDBC connection pool (use the built-in) -->
+		<!--<property name="connection.pool_size">1</property>-->
+
+		<property name="hibernate.cache.use_query_cache">true</property>
+		<property name="hibernate.max_fetch_depth">4</property>
+		<property name="hibernate.cache.use_second_level_cache">true</property>
+		<property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property>
+
+
+		<property name="hibernate.generate_statistics">false</property>
+		<property name="hibernate.show_sql">true</property>
+		<property name="hibernate.format_sql">false</property>
+		<property name="hibernate.hbm2ddl.auto">update</property>
+		<property name="connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>
+
+		<mapping class="models.Endereco" />
+		<mapping class="models.Pessoa" />
+		<mapping class="models.Cliente" />
+		<mapping class="models.Vendedor" />
+		<mapping class="models.Agenda" />
+		<mapping class="models.Fornecedor" />
+		<mapping class="models.Produto" />
+		<mapping class="models.Visita" />
+		<mapping class="models.Pedido" />
+		<mapping class="models.ItensPedido" />
+		<mapping class="models.Categoria" />
+
+		<class-cache class="models.Produto" usage="read-write" />
+	</session-factory>
+
+</hibernate-configuration>
